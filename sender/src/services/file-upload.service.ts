@@ -5,6 +5,7 @@ import STATUS_CODES from '../constants/status-codes.constants';
 import ErrorMessages from '../constants/error-messages.constants';
 import { promisify } from 'util';
 import { Content } from '../models/content.response';
+import { sendToReceiver } from './receiver.service';
 
 export async function fileUpload(file: any): Promise<Content> {
     const fileName: string = file.name;
@@ -31,6 +32,7 @@ export async function fileUpload(file: any): Promise<Content> {
         createdDate: new Date(Date.now()).toJSON(),
         path: extractPath
     };
+    await sendToReceiver(contentRes);
     return contentRes;
 }
 

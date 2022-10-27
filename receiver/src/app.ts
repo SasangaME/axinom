@@ -2,8 +2,6 @@ import express, { Application, Request, Response, NextFunction, Router } from 'e
 import cors from 'cors';
 import * as bodyParser from 'body-parser';
 import { config } from 'dotenv';
-import upload from 'express-fileupload';
-import { fileRouter } from './routes/file.upload.route';
 
 config();
 
@@ -14,17 +12,11 @@ app.use(cors({ origin: '*' }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const fileSize: number = parseInt(process.env.FILE_SIZE || '2'); // in MB
-app.use(upload({
-    limits: { fileSize: fileSize * 1024 * 1024 }
-}));
-
 export const router = Router();
-router.use('/api/v1/file', fileRouter);
 app.use(router);
 
 app.get('/', (req: Request, res: Response, next: NextFunction) => {
-    res.json({ "message": "Sender service is working" });
+    res.json({ "message": "Receiver service is working" });
 });
 
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
@@ -34,10 +26,8 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
     return;
 });
 
-
-const port = parseInt(process.env.PORT || '3001');
+const port = parseInt(process.env.PORT || '3002');
 
 app.listen(port, () => {
     console.log(`server is listening on port ${port}`);
 })
-

@@ -2,6 +2,7 @@ import express, { Application, Request, Response, NextFunction, Router } from 'e
 import cors from 'cors';
 import * as bodyParser from 'body-parser';
 import { config } from 'dotenv';
+import { dbConnect } from './configs/db.config';
 
 import { receiveRouter } from './routes/file-receiver.route';
 
@@ -13,6 +14,8 @@ app.use(cors({ origin: '*' }));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+dbConnect();
 
 export const router = Router();
 router.use('/api/v1/receive', receiveRouter);

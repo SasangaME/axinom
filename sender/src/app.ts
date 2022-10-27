@@ -3,6 +3,7 @@ import cors from 'cors';
 import * as bodyParser from 'body-parser';
 import { config } from 'dotenv';
 import upload from 'express-fileupload';
+import { fileRouter } from './routes/file.upload.route';
 
 config();
 
@@ -19,11 +20,11 @@ app.use(upload({
 }));
 
 export const router = Router();
-// router.use('/api/v1/build', buildRouter);
+router.use('/api/v1/file', fileRouter);
 app.use(router);
 
 app.get('/', (req: Request, res: Response, next: NextFunction) => {
-    res.json({ "message": "Express server with TypeScript" });
+    res.json({ "message": "Sender service is working" });
 });
 
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
@@ -32,6 +33,7 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
     res.status(statusCode).json({ 'message': err.message });
     return;
 });
+
 
 const port = parseInt(process.env.PORT || '3000');
 

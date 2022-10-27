@@ -3,6 +3,8 @@ import cors from 'cors';
 import * as bodyParser from 'body-parser';
 import { config } from 'dotenv';
 
+import { receiveRouter } from './routes/file-receiver.route';
+
 config();
 
 const app: Application = express();
@@ -13,6 +15,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 export const router = Router();
+router.use('/api/v1/receive', receiveRouter);
 app.use(router);
 
 app.get('/', (req: Request, res: Response, next: NextFunction) => {

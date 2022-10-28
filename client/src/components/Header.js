@@ -6,13 +6,22 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
+import { useNavigate } from 'react-router-dom';
 
 function Header() {
+
+    const navigate = useNavigate();
+
+    const headerClick = () => {
+        navigate('/');
+    }
     return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
                 <Toolbar>
-                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                    <Typography variant="h6"
+                        onClick={headerClick}
+                        component="div" sx={{ flexGrow: 1 }}>
                         JSON Submissions
                     </Typography>
                 </Toolbar>

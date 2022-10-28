@@ -17,7 +17,8 @@ export async function fileUpload(file: any): Promise<Content> {
         };
         throw err;
     }
-    const filePath: string = `./uploads/${fileName}`;
+    const uploadBase: string = process.env.UPLOAD_LOCATION || './uploads';
+    const filePath: string = `${uploadBase}/${fileName}`;
     await file.mv(filePath);
     const extractPath = await unarchive(filePath);
     await unlink(filePath, err => {
@@ -39,8 +40,9 @@ export async function fileUpload(file: any): Promise<Content> {
 
 async function unarchive(filePath: string): Promise<string> {
     const readDir = promisify(readdir);
-    const itemCount: number = (await readDir('./extracted')).length + 1 || 1;
-    const extractPath: string = `./extracted/${itemCount}`;
+    const extractBase: string = process.env.EXTRACT_LOCATION || './extracted';
+    const itemCount: number = (await readDir(extractBase)).length + 1 || 1;
+    const extractPath: string = `${extractBase}/${itemCount}`;
     const zip = new AdmZip(filePath);
     await zip.extractAllTo(extractPath);
     return extractPath;

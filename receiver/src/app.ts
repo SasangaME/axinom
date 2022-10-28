@@ -5,6 +5,7 @@ import { config } from 'dotenv';
 import { dbConnect } from './configs/db.config';
 
 import { receiveRouter } from './routes/content.route';
+import { authRouter } from './routes/auth.route';
 
 config();
 
@@ -19,6 +20,7 @@ dbConnect();
 
 export const router = Router();
 router.use('/api/v1/content', receiveRouter);
+router.use('/api/v1/auth', authRouter);
 app.use(router);
 
 app.get('/', (req: Request, res: Response, next: NextFunction) => {

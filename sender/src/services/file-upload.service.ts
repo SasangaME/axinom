@@ -2,7 +2,7 @@ import path from 'path';
 import AdmZip from 'adm-zip';
 import { readdir, unlink } from 'fs';
 import STATUS_CODES from '../constants/status-codes.constants';
-import ErrorMessages from '../constants/error-messages.constants';
+import StatusMessages from '../constants/status-messages.constants';
 import { promisify } from 'util';
 import { Content } from '../models/content.response';
 import { sendToReceiver } from './receiver.service';
@@ -13,7 +13,7 @@ export async function fileUpload(file: any): Promise<Content> {
     if (extenstion !== '.zip') {
         const err = {
             statusCode: STATUS_CODES.BAD_REQUEST,
-            message: ErrorMessages.ZIP_FORMAT_ERROR
+            message: StatusMessages.ZIP_FORMAT_ERROR
         };
         throw err;
     }

@@ -1,7 +1,7 @@
 import { ContentRequest } from "../models/dto/content.model";
 import { Content } from '../models/schema/content.schema';
 
-export async function contentReceive(content: ContentRequest) {
+export async function receive(content: ContentRequest) {
     console.log('receiver called');
     const data = new Content({
         fileName: content.fileName,
@@ -14,10 +14,13 @@ export async function contentReceive(content: ContentRequest) {
     return result;
 }
 
-export async function getContent(): Promise<ContentRequest[]> {
+export async function get(): Promise<ContentRequest[]> {
     const data = await Content.find();
     return data;
 }
 
-export async function getContentById() { }
+export async function getById(id: string) {
+    const data = await Content.findById(id);
+    return data;
+}
 

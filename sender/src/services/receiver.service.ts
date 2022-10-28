@@ -8,6 +8,7 @@ export async function sendToReceiver(req: Content) {
         headers: {
             'Content-Type': 'application/json',
             Accept: 'application/json',
+            'Authorization': `Bearer ${process.env.JWT}`
         },
     },
     );

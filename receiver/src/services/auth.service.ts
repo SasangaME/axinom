@@ -36,7 +36,3 @@ export async function login(loginRequest: LoginRequest) {
     const token = await createToken(loginRequest.username);
     return token;
 }
-
-export async function authenticate(token: string) {
-
-}

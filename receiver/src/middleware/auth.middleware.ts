@@ -6,7 +6,6 @@ import { verify } from '../utils/jwt.util';
 
 export function authenticate(req: Request, res: Response, next: NextFunction) {
     try {
-        console.log('middleware called');
         const token: string = req.headers?.authorization?.split(' ')[1] || '';
         if (token.length === 0) {
             const err = {

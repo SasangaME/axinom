@@ -2,18 +2,18 @@ import path from 'path';
 import AdmZip from 'adm-zip';
 import { readdir, unlink } from 'fs';
 import STATUS_CODES from '../constants/status-codes.constants';
-import StatusMessages from '../constants/status-messages.constants';
+import STATUS_MESSAGE from '../constants/status-messages.constants';
 import { promisify } from 'util';
 import { Content } from '../models/content.response';
 import { sendToReceiver } from './receiver.service';
 
-export async function fileUpload(file: any): Promise<Content> {
+export async function fileUpload(file: any, token: string): Promise<Content> {
     const fileName: string = file.name;
     const extenstion: string = path.extname(fileName);
     if (extenstion !== '.zip') {
         const err = {
             statusCode: STATUS_CODES.BAD_REQUEST,
-            message: StatusMessages.ZIP_FORMAT_ERROR
+            message: STATUS_MESSAGE.ZIP_FORMAT_ERROR
         };
         throw err;
     }
@@ -30,11 +30,11 @@ export async function fileUpload(file: any): Promise<Content> {
     const contentRes: Content = {
         fileName: fileName,
         contents: content,
-        createdBy: 'Sasanga',
+        createdBy: 'Sasanga', // this is the system user
         createdDate: new Date(Date.now()).toJSON(),
         path: extractPath
     };
-    await sendToReceiver(contentRes);
+    await sendToReceiver(contentRes, token);
     return contentRes;
 }
 

@@ -27,6 +27,7 @@ export async function fileUpload(file: any): Promise<Content> {
     });
     const content = await createContent(extractPath);
     const contentRes: Content = {
+        fileName: fileName,
         contents: content,
         createdBy: 'Sasanga',
         createdDate: new Date(Date.now()).toJSON(),

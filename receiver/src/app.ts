@@ -4,7 +4,7 @@ import * as bodyParser from 'body-parser';
 import { config } from 'dotenv';
 import { dbConnect } from './configs/db.config';
 
-import { receiveRouter } from './routes/file-receiver.route';
+import { receiveRouter } from './routes/content.route';
 
 config();
 
@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 dbConnect();
 
 export const router = Router();
-router.use('/api/v1/receive', receiveRouter);
+router.use('/api/v1/content', receiveRouter);
 app.use(router);
 
 app.get('/', (req: Request, res: Response, next: NextFunction) => {
